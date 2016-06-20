@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TennisCounter.Logic
 {
@@ -8,11 +9,11 @@ namespace TennisCounter.Logic
 
         private int currentSet;
         private int maxSetsPerMatch;
-        private bool player1Serves;
         private List<Set> sets;
         private MatchSettings settings;
 
         private Winner winner;
+        private bool player1Serves;
 
         #endregion Private Fields
 
@@ -23,7 +24,13 @@ namespace TennisCounter.Logic
             this.settings = settings;
             maxSetsPerMatch = settings.MaxSets;
             sets = new List<Set>();
+            if (maxSetsPerMatch == 1 && settings.SuperTiebreak)
+                sets.Add(new SuperTiebreak(settings));
+            else
+                sets.Add(new Set(settings));
             winner = Winner.None;
+
+            sets[currentSet].TogglePlayer1Serves += Match_TogglePlayer1Serves;
         }
 
         #endregion Public Constructors
@@ -41,7 +48,6 @@ namespace TennisCounter.Logic
         public bool Player1Serves
         {
             get { return player1Serves; }
-            set { player1Serves = value; }
         }
 
         public MatchSettings Settings
@@ -65,7 +71,7 @@ namespace TennisCounter.Logic
 
         public string GetPlayer1Games(int set)
         {
-            if (set < currentSet)
+            if (set > currentSet)
                 return "";
 
             return sets[set].PointsPlayer1.ToString();
@@ -78,7 +84,7 @@ namespace TennisCounter.Logic
 
         public string GetPlayer2Games(int set)
         {
-            if (set < currentSet)
+            if (set > currentSet)
                 return "";
 
             return sets[set].PointsPlayer2.ToString();
@@ -105,16 +111,60 @@ namespace TennisCounter.Logic
             if (sets[currentSet].Winner == Winner.None)
                 return;
 
-            if (currentSet == maxSetsPerMatch && sets[currentSet].Winner != Winner.None)
+            if (IsThereAWinner())
                 this.winner = sets[currentSet].Winner;
 
-            if (currentSet == maxSetsPerMatch - 1 && settings.SuperTiebreak)
-                sets.Add(new SuperTiebreak(settings));
+            if (this.winner != Logic.Winner.None)
+                return;
 
-            sets.Add(new Set(settings.MaxGames, settings));
+            if (currentSet == maxSetsPerMatch - 1 && settings.SuperTiebreak)
+            {
+                sets.Add(new SuperTiebreak(settings));
+                currentSet++;
+                sets[currentSet].TogglePlayer1Serves += Match_TogglePlayer1Serves;
+                return;
+            }
+
+            sets.Add(new Set(settings));
             currentSet++;
+            sets[currentSet].TogglePlayer1Serves += Match_TogglePlayer1Serves;
+        }
+
+        private bool IsThereAWinner()
+        {
+            if (maxSetsPerMatch / 2 > currentSet + 1)
+                return false;
+
+            int Player1WinCount = 0;
+            int Player2WinCount = 0;
+            for (int i = 0; i < currentSet + 1; i++)
+            {
+                if (sets[i].Winner == Logic.Winner.Player1)
+                    Player1WinCount++;
+
+                if (sets[i].Winner == Logic.Winner.Player2)
+                    Player2WinCount++;
+            }
+
+            if (maxSetsPerMatch / 2 < Player1WinCount || maxSetsPerMatch / 2 < Player2WinCount)
+                return true;
+
+            return false;
+        }
+
+        private void Match_TogglePlayer1Serves(object sender, System.EventArgs e)
+        {
+            player1Serves = !player1Serves;
         }
 
         #endregion Private Methods
+
+        public Winner GetSetResult(int set)
+        {
+            if (set >= sets.Count)
+                return Winner.None;
+
+            return sets[set].Winner;
+        }
     }
 }

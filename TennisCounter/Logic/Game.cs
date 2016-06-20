@@ -1,4 +1,5 @@
-﻿namespace TennisCounter.Logic
+﻿using System;
+namespace TennisCounter.Logic
 {
     public class Game
     {
@@ -14,6 +15,13 @@
         #region Private Fields
 
         private string advantageText;
+
+        public event EventHandler<EventArgs> TogglePlayer1Serves;
+        public void OnTogglePlayer1Serves()
+        {
+            if (TogglePlayer1Serves != null)
+                TogglePlayer1Serves(this, new EventArgs());
+        }
 
         #endregion Private Fields
 
@@ -56,6 +64,11 @@
         internal virtual void IncreasePointPlayer1()
         {
             player1++;
+            if (!noAdvantage && player1 == 4 && player2 == 4)
+            {
+                player2--;
+                player1--;
+            }
             GetWinner();
         }
 
@@ -64,6 +77,8 @@
             player2++;
             if (!noAdvantage && player1 == 4 && player2 == 4)
             {
+                player2--;
+                player1--;
             }
             GetWinner();
         }
@@ -77,26 +92,33 @@
             if (player1 < 4 && player2 < 4)
                 return;
 
+            if(Math.Abs(player1-player2)>1)
+                if (player1 > player2)
+                {
+                    winner = Winner.Player1;
+                    OnTogglePlayer1Serves();
+                    return;
+                }
+                else
+                {
+                    winner = Winner.Player2;
+                    OnTogglePlayer1Serves();
+                    return;
+                }
+
+
             if (player1 == 4 && NoAdvantage)
             {
                 winner = Winner.Player1;
+                OnTogglePlayer1Serves();
                 return;
             }
 
             if (player2 == 4 && NoAdvantage)
             {
                 winner = Winner.Player2;
+                OnTogglePlayer1Serves();
                 return;
-            }
-
-            if (player1 > 5)
-            {
-                winner = Winner.Player1;
-            }
-
-            if (player2 > 4)
-            {
-                winner = Winner.Player2;
             }
         }
 
@@ -126,5 +148,6 @@
         }
 
         #endregion Private Methods
+        
     }
 }

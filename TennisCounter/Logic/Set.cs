@@ -6,6 +6,13 @@ namespace TennisCounter.Logic
 {
     public class Set
     {
+
+        public event EventHandler<EventArgs> TogglePlayer1Serves;
+        public void OnTogglePlayer1Serves()
+        {
+            if (TogglePlayer1Serves != null)
+                TogglePlayer1Serves(this, new EventArgs());
+        }
         #region Protected Fields
 
         protected Winner winner;
@@ -24,12 +31,19 @@ namespace TennisCounter.Logic
 
         #region Public Constructors
 
-        public Set(int GamesPerSet, MatchSettings settings)
+        public Set(MatchSettings settings)
         {
-            this.maxGamesPerSet = GamesPerSet;
+            this.maxGamesPerSet = settings.MaxGames;
             this.settings = settings;
             winner = Winner.None;
             games = new List<Game>();
+            games.Add(new Game(settings));
+            games[currentGame].TogglePlayer1Serves+=Set_TogglePlayer1Serves;
+        }
+
+        private void Set_TogglePlayer1Serves(object sender, EventArgs e)
+        {
+            OnTogglePlayer1Serves();
         }
 
         #endregion Public Constructors
@@ -97,11 +111,14 @@ namespace TennisCounter.Logic
             {
                 games.Add(new Tiebreak(settings));
                 tiebreak = true;
+                currentGame++;
+                games[currentGame].TogglePlayer1Serves += Set_TogglePlayer1Serves;
                 return;
             }
 
             games.Add(new Game(settings));
             currentGame++;
+            games[currentGame].TogglePlayer1Serves += Set_TogglePlayer1Serves;
         }
 
         #endregion Protected Methods

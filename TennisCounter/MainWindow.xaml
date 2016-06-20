@@ -1,8 +1,20 @@
 ﻿<Window x:Class="TennisCounter.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="300" Width="599" Background="#FF2D2D30">
     <Grid>
-        
+        <Label x:Name="Player2GameState" Content="Ad" HorizontalAlignment="Left" Margin="419,166,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player1GameState" Content="Ad" HorizontalAlignment="Left" Margin="419,43,0,0" VerticalAlignment="Top" Background="#FF252625" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player2Set1" Content="Ad" HorizontalAlignment="Left" Margin="45,166,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player1Set1" Content="Ad" HorizontalAlignment="Left" Margin="45,43,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player2Set2" Content="Ad" HorizontalAlignment="Left" Margin="110,166,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player1Set2" Content="Ad" HorizontalAlignment="Left" Margin="110,43,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player2Set3" Content="Ad" HorizontalAlignment="Left" Margin="175,166,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player1Set3" Content="Ad" HorizontalAlignment="Left" Margin="175,43,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Button x:Name="AddPointPlayer1" Content="+" HorizontalAlignment="Left" Margin="484,43,0,0" VerticalAlignment="Top" Width="64" Height="60" FontSize="36" Padding="1,1,1,10" BorderBrush="{x:Null}" Background="#FF252526" Foreground="#FFC5C5C5" Click="AddPointPlayer1_Click"/>
+        <Button x:Name="AddPointPlayer2" Content="+" HorizontalAlignment="Left" Margin="484,166,0,0" VerticalAlignment="Top" Width="64" Height="60" FontSize="36" Padding="1,1,1,10" BorderBrush="{x:Null}" Background="#FF252526" Foreground="#FFC5C5C5" Click="AddPointPlayer2_Click"/>
+        <Label x:Name="Player2Serve" Content="Ad" HorizontalAlignment="Left" Margin="354,166,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+        <Label x:Name="Player1Serve" Content="Ad" HorizontalAlignment="Left" Margin="354,43,0,0" VerticalAlignment="Top" Background="#FF252526" Foreground="#FFC5C5C5" Height="60" Width="60" FontWeight="Bold" FontSize="36" FontFamily="Lucida Console" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,15,5,5"/>
+
     </Grid>
 </Window>

@@ -9,6 +9,7 @@ namespace TennisCounter.Logic
         public Tiebreak(MatchSettings settings)
             : base(settings)
         {
+            servechangecounter = 1;
         }
 
         #endregion Public Constructors
@@ -28,13 +29,26 @@ namespace TennisCounter.Logic
         internal override void IncreasePointPlayer1()
         {
             player1++;
+            UpdateSideChangeCounter();
             GetWinner();
         }
 
         internal override void IncreasePointPlayer2()
         {
             player2++;
+            UpdateSideChangeCounter();
             GetWinner();
+        }
+
+        private void UpdateSideChangeCounter()
+        {
+
+            servechangecounter++;
+            if (servechangecounter == 2)
+            {
+                servechangecounter = 0;
+                OnTogglePlayer1Serves();
+            }
         }
 
         #endregion Internal Methods
@@ -50,6 +64,7 @@ namespace TennisCounter.Logic
                 winner = player1 > player2 ? Winner.Player1 : Winner.Player2;
         }
 
+        int servechangecounter;
         #endregion Protected Methods
     }
 }

@@ -9,15 +9,17 @@ namespace TennisCounter.Logic
         private int minLength;
         private int player1;
         private int player2;
+        private int servechangecounter;
 
         #endregion Private Fields
 
         #region Public Constructors
-
+        
         public SuperTiebreak(MatchSettings settings)
-            : base(0, settings)
+            : base(settings)
         {
             this.minLength = settings.SuperTiebreakLength;
+            servechangecounter = 1;
         }
 
         #endregion Public Constructors
@@ -61,15 +63,27 @@ namespace TennisCounter.Logic
         internal override void IncreasePointPlayer1()
         {
             player1++;
+            UpdateSideChangeCounter();
             GetWinner();
         }
 
         internal override void IncreasePointPlayer2()
         {
             player2++;
+            UpdateSideChangeCounter();
             GetWinner();
         }
 
+        private void UpdateSideChangeCounter()
+        {
+
+            servechangecounter++;
+            if (servechangecounter == 2)
+            {
+                servechangecounter = 0;
+                OnTogglePlayer1Serves();
+            }
+        }
         #endregion Internal Methods
 
         #region Protected Methods
