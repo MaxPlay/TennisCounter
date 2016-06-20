@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TennisCounter", "TennisCounter\TennisCounter.csproj", "{19C1EF62-A0CD-4ABA-B356-3BB3F2652AFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19C1EF62-A0CD-4ABA-B356-3BB3F2652AFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C1EF62-A0CD-4ABA-B356-3BB3F2652AFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C1EF62-A0CD-4ABA-B356-3BB3F2652AFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C1EF62-A0CD-4ABA-B356-3BB3F2652AFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
