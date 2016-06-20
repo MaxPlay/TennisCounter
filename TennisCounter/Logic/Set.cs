@@ -6,13 +6,6 @@ namespace TennisCounter.Logic
 {
     public class Set
     {
-
-        public event EventHandler<EventArgs> TogglePlayer1Serves;
-        public void OnTogglePlayer1Serves()
-        {
-            if (TogglePlayer1Serves != null)
-                TogglePlayer1Serves(this, new EventArgs());
-        }
         #region Protected Fields
 
         protected Winner winner;
@@ -22,9 +15,13 @@ namespace TennisCounter.Logic
         #region Private Fields
 
         private int currentGame;
+
         private List<Game> games;
+
         private int maxGamesPerSet;
+
         private MatchSettings settings;
+
         private bool tiebreak;
 
         #endregion Private Fields
@@ -38,15 +35,16 @@ namespace TennisCounter.Logic
             winner = Winner.None;
             games = new List<Game>();
             games.Add(new Game(settings));
-            games[currentGame].TogglePlayer1Serves+=Set_TogglePlayer1Serves;
-        }
-
-        private void Set_TogglePlayer1Serves(object sender, EventArgs e)
-        {
-            OnTogglePlayer1Serves();
+            games[currentGame].TogglePlayer1Serves += Set_TogglePlayer1Serves;
         }
 
         #endregion Public Constructors
+
+        #region Public Events
+
+        public event EventHandler<EventArgs> TogglePlayer1Serves;
+
+        #endregion Public Events
 
         #region Public Properties
 
@@ -56,7 +54,9 @@ namespace TennisCounter.Logic
         }
 
         public int PointsPlayer1 { get { return games.Count(g => g.Winner == Winner.Player1); } }
+
         public int PointsPlayer2 { get { return games.Count(g => g.Winner == Winner.Player2); } }
+
         public Winner Winner { get { return winner; } }
 
         #endregion Public Properties
@@ -71,6 +71,12 @@ namespace TennisCounter.Logic
         public virtual string GetCurrentGamePlayer2Progress()
         {
             return games[currentGame].GetPlayer2Progress();
+        }
+
+        public void OnTogglePlayer1Serves()
+        {
+            if (TogglePlayer1Serves != null)
+                TogglePlayer1Serves(this, new EventArgs());
         }
 
         #endregion Public Methods
@@ -122,5 +128,14 @@ namespace TennisCounter.Logic
         }
 
         #endregion Protected Methods
+
+        #region Private Methods
+
+        private void Set_TogglePlayer1Serves(object sender, EventArgs e)
+        {
+            OnTogglePlayer1Serves();
+        }
+
+        #endregion Private Methods
     }
 }

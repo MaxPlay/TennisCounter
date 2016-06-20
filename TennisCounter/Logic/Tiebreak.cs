@@ -4,10 +4,16 @@ namespace TennisCounter.Logic
 {
     public class Tiebreak : Game, ITiebreak
     {
+        #region Private Fields
+
+        private int servechangecounter;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         public Tiebreak(MatchSettings settings)
-            : base(settings)
+                    : base(settings)
         {
             servechangecounter = 1;
         }
@@ -40,17 +46,6 @@ namespace TennisCounter.Logic
             GetWinner();
         }
 
-        private void UpdateSideChangeCounter()
-        {
-
-            servechangecounter++;
-            if (servechangecounter == 2)
-            {
-                servechangecounter = 0;
-                OnTogglePlayer1Serves();
-            }
-        }
-
         #endregion Internal Methods
 
         #region Protected Methods
@@ -64,7 +59,20 @@ namespace TennisCounter.Logic
                 winner = player1 > player2 ? Winner.Player1 : Winner.Player2;
         }
 
-        int servechangecounter;
         #endregion Protected Methods
+
+        #region Private Methods
+
+        private void UpdateSideChangeCounter()
+        {
+            servechangecounter++;
+            if (servechangecounter == 2)
+            {
+                servechangecounter = 0;
+                OnTogglePlayer1Serves();
+            }
+        }
+
+        #endregion Private Methods
     }
 }

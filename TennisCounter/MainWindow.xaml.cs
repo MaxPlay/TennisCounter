@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TennisCounter.Logic;
 
 namespace TennisCounter
@@ -21,9 +9,15 @@ namespace TennisCounter
     /// </summary>
     public partial class MainWindow : Window
     {
-        Match match;
-        SolidColorBrush defaultColor;
-        SolidColorBrush winningColor;
+        #region Private Fields
+
+        private SolidColorBrush defaultColor;
+        private Match match;
+        private SolidColorBrush winningColor;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public MainWindow()
         {
@@ -43,9 +37,19 @@ namespace TennisCounter
             UpdateGui();
         }
 
+        #endregion Public Constructors
+
+        #region Private Methods
+
         private void AddPointPlayer1_Click(object sender, RoutedEventArgs e)
         {
             match.IncreasePointPlayer1();
+            UpdateGui();
+        }
+
+        private void AddPointPlayer2_Click(object sender, RoutedEventArgs e)
+        {
+            match.IncreasePointPlayer2();
             UpdateGui();
         }
 
@@ -78,10 +82,6 @@ namespace TennisCounter
             }
         }
 
-        private void AddPointPlayer2_Click(object sender, RoutedEventArgs e)
-        {
-            match.IncreasePointPlayer2();
-            UpdateGui();
-        }
+        #endregion Private Methods
     }
 }

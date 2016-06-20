@@ -14,7 +14,7 @@ namespace TennisCounter.Logic
         #endregion Private Fields
 
         #region Public Constructors
-        
+
         public SuperTiebreak(MatchSettings settings)
             : base(settings)
         {
@@ -74,16 +74,6 @@ namespace TennisCounter.Logic
             GetWinner();
         }
 
-        private void UpdateSideChangeCounter()
-        {
-
-            servechangecounter++;
-            if (servechangecounter == 2)
-            {
-                servechangecounter = 0;
-                OnTogglePlayer1Serves();
-            }
-        }
         #endregion Internal Methods
 
         #region Protected Methods
@@ -98,5 +88,19 @@ namespace TennisCounter.Logic
         }
 
         #endregion Protected Methods
+
+        #region Private Methods
+
+        private void UpdateSideChangeCounter()
+        {
+            servechangecounter++;
+            if (servechangecounter == 2)
+            {
+                servechangecounter = 0;
+                OnTogglePlayer1Serves();
+            }
+        }
+
+        #endregion Private Methods
     }
 }

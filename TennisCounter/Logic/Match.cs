@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TennisCounter.Logic
 {
@@ -9,11 +8,11 @@ namespace TennisCounter.Logic
 
         private int currentSet;
         private int maxSetsPerMatch;
+        private bool player1Serves;
         private List<Set> sets;
         private MatchSettings settings;
 
         private Winner winner;
-        private bool player1Serves;
 
         #endregion Private Fields
 
@@ -90,6 +89,14 @@ namespace TennisCounter.Logic
             return sets[set].PointsPlayer2.ToString();
         }
 
+        public Winner GetSetResult(int set)
+        {
+            if (set >= sets.Count)
+                return Winner.None;
+
+            return sets[set].Winner;
+        }
+
         public void IncreasePointPlayer1()
         {
             sets[currentSet].IncreasePointPlayer1();
@@ -158,13 +165,5 @@ namespace TennisCounter.Logic
         }
 
         #endregion Private Methods
-
-        public Winner GetSetResult(int set)
-        {
-            if (set >= sets.Count)
-                return Winner.None;
-
-            return sets[set].Winner;
-        }
     }
 }

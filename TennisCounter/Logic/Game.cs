@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace TennisCounter.Logic
 {
     public class Game
@@ -16,13 +17,6 @@ namespace TennisCounter.Logic
 
         private string advantageText;
 
-        public event EventHandler<EventArgs> TogglePlayer1Serves;
-        public void OnTogglePlayer1Serves()
-        {
-            if (TogglePlayer1Serves != null)
-                TogglePlayer1Serves(this, new EventArgs());
-        }
-
         #endregion Private Fields
 
         #region Public Constructors
@@ -36,6 +30,12 @@ namespace TennisCounter.Logic
 
         #endregion Public Constructors
 
+        #region Public Events
+
+        public event EventHandler<EventArgs> TogglePlayer1Serves;
+
+        #endregion Public Events
+
         #region Public Properties
 
         public bool NoAdvantage
@@ -44,10 +44,22 @@ namespace TennisCounter.Logic
         }
 
         public int PointsPlayer1 { get { return player1; } }
+
         public int PointsPlayer2 { get { return player2; } }
+
         public Winner Winner { get { return winner; } }
 
         #endregion Public Properties
+
+        #region Public Methods
+
+        public void OnTogglePlayer1Serves()
+        {
+            if (TogglePlayer1Serves != null)
+                TogglePlayer1Serves(this, new EventArgs());
+        }
+
+        #endregion Public Methods
 
         #region Internal Methods
 
@@ -92,7 +104,7 @@ namespace TennisCounter.Logic
             if (player1 < 4 && player2 < 4)
                 return;
 
-            if(Math.Abs(player1-player2)>1)
+            if (Math.Abs(player1 - player2) > 1)
                 if (player1 > player2)
                 {
                     winner = Winner.Player1;
@@ -105,7 +117,6 @@ namespace TennisCounter.Logic
                     OnTogglePlayer1Serves();
                     return;
                 }
-
 
             if (player1 == 4 && NoAdvantage)
             {
@@ -148,6 +159,5 @@ namespace TennisCounter.Logic
         }
 
         #endregion Private Methods
-        
     }
 }
